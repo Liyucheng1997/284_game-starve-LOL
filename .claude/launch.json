@@ -6,6 +6,13 @@
       "runtimeExecutable": "npm",
       "runtimeArgs": ["run", "dev"],
       "port": 5173
+    },
+    {
+      "name": "dev-285",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["vite", "--port", "5287", "--strictPort"],
+      "port": 5287,
+      "autoPort": false
     }
   ]
 }

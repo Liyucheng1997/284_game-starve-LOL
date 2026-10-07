@@ -1,6 +1,7 @@
 // ============================================================
-// 英雄定义:三名英雄,LOL 式 Q/W/E/R 技能(R 六级解锁)
-// cast(game, lvl) 调用 game 提供的战斗接口
+// 英雄定义:三名英雄,LOL 式 Q/W/E/R 技能(R 在 6/11/16 级可升级)
+// cast(game, lvl) 为玩家施放版本;AI 施放逻辑见 heroai.js
+// stats 中 *PerLevel 为每级成长;build 为 AI 出装顺序
 // ============================================================
 import { sfx } from './sfx.js';
 
@@ -11,10 +12,12 @@ export const HEROES = {
     role: '远程 · 法术爆发',
     desc: '烧穿黑夜的流浪法师',
     stats: {
-      maxHp: 300, maxMp: 220, hpRegen: 1.2, mpRegen: 5.5,
-      moveSpeed: 6.2, attackDamage: 22, attackRange: 16,
-      attackCooldown: 0.62, attackType: 'ranged', critChance: 0.05,
+      maxHp: 430, maxMp: 260, hpRegen: 1.6, mpRegen: 5.5,
+      hpPerLevel: 64, mpPerLevel: 25, adPerLevel: 2.6, armor: 12, armorPerLevel: 2.6,
+      moveSpeed: 6.2, attackDamage: 24, attackRange: 11,
+      attackCooldown: 0.66, attackType: 'ranged', critChance: 0.05,
     },
+    build: ['logsuit', 'iceamulet', 'firestaff', 'cane', 'darksword', 'lifeamulet'],
     skills: [
       {
         key: 'Q', icon: 'fireball', name: '烈焰火球', maxLevel: 5,
@@ -65,11 +68,13 @@ export const HEROES = {
     role: '近战 · 坦克战士',
     desc: '扛着巨斧的荒原不倒翁',
     stats: {
-      maxHp: 480, maxMp: 140, hpRegen: 3.5, mpRegen: 3,
-      moveSpeed: 5.8, attackDamage: 34, attackRange: 3.4,
+      maxHp: 620, maxMp: 180, hpRegen: 3.5, mpRegen: 3.2,
+      hpPerLevel: 92, mpPerLevel: 14, adPerLevel: 3.4, armor: 28, armorPerLevel: 3.6,
+      moveSpeed: 5.9, attackDamage: 36, attackRange: 3.4,
       attackCooldown: 0.85, attackType: 'melee', critChance: 0.08,
       damageReduction: 0.12,
     },
+    build: ['flint', 'football', 'hambat', 'cane', 'marble', 'crown'],
     skills: [
       {
         key: 'Q', icon: 'cleave', name: '裂地重斩', maxLevel: 5,
@@ -118,10 +123,12 @@ export const HEROES = {
     role: '近战 · 高爆刺客',
     desc: '月光下只留一道残影',
     stats: {
-      maxHp: 340, maxMp: 160, hpRegen: 2, mpRegen: 4,
-      moveSpeed: 7.2, attackDamage: 30, attackRange: 3,
-      attackCooldown: 0.5, attackType: 'melee', critChance: 0.22,
+      maxHp: 490, maxMp: 200, hpRegen: 2.2, mpRegen: 4,
+      hpPerLevel: 72, mpPerLevel: 16, adPerLevel: 3.2, armor: 18, armorPerLevel: 3,
+      moveSpeed: 6.9, attackDamage: 31, attackRange: 3,
+      attackCooldown: 0.55, attackType: 'melee', critChance: 0.2,
     },
+    build: ['flint', 'spear', 'cane', 'hambat', 'darksword', 'lifeamulet'],
     skills: [
       {
         key: 'Q', icon: 'shadowstrike', name: '影袭', maxLevel: 5,

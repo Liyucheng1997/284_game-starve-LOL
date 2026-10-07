@@ -1,13 +1,16 @@
 // ============================================================
-// 入口:英雄选择 → 开始游戏
+// 入口:选择英雄与难度 → 开始对局
 // ============================================================
 import { HEROES } from './heroes.js';
+import { DIFFICULTY } from './config.js';
 import { makeHeroPortrait } from './textures.js';
 import { Game } from './game.js';
 
 const cardsEl = document.getElementById('hero-cards');
+const diffEl = document.getElementById('difficulty');
 const startBtn = document.getElementById('start-btn');
 let selected = null;
+let difficulty = 'normal';
 
 Object.values(HEROES).forEach(hero => {
   const card = document.createElement('div');
@@ -31,12 +34,23 @@ Object.values(HEROES).forEach(hero => {
   cardsEl.appendChild(card);
 });
 
+Object.entries(DIFFICULTY).forEach(([key, d]) => {
+  const btn = document.createElement('button');
+  btn.className = 'diff-btn' + (key === difficulty ? ' selected' : '');
+  btn.innerHTML = `${d.name}<small>${d.desc}</small>`;
+  btn.addEventListener('click', () => {
+    difficulty = key;
+    diffEl.querySelectorAll('.diff-btn').forEach(b => b.classList.remove('selected'));
+    btn.classList.add('selected');
+  });
+  diffEl.appendChild(btn);
+});
+
 startBtn.addEventListener('click', () => {
   if (!selected) return;
   document.getElementById('hero-select').classList.add('hidden');
-  const game = new Game(selected);
+  const game = new Game(selected, difficulty);
   window.game = game; // 便于调试
   game.start();
-  // 首次点击进入指针锁定
   setTimeout(() => game.lockPointer(), 100);
 });

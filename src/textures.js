@@ -2,23 +2,23 @@
 // 程序化"手绘"贴图 —— 饥荒画风:歪扭墨线 + 暗淡色调 + 纸片质感
 // ============================================================
 
-const INK = '#211c15';
+export const INK = '#211c15';
 
 let _seed = 7;
-function rnd() {
+export function rnd() {
   _seed = (_seed * 16807) % 2147483647;
   return (_seed - 1) / 2147483646;
 }
-function seed(n) { _seed = n; }
+export function seed(n) { _seed = n; }
 
-function makeCanvas(w, h) {
+export function makeCanvas(w, h) {
   const c = document.createElement('canvas');
   c.width = w; c.height = h;
   return c;
 }
 
 // 歪扭的手绘线条
-function wobbly(ctx, pts, jitter = 2.5, close = false) {
+export function wobbly(ctx, pts, jitter = 2.5, close = false) {
   ctx.beginPath();
   const segs = [];
   for (let i = 0; i < pts.length - 1; i++) {
@@ -38,7 +38,7 @@ function wobbly(ctx, pts, jitter = 2.5, close = false) {
 }
 
 // 歪扭椭圆(手绘感的圆)
-function wobblyEllipse(ctx, cx, cy, rx, ry, jitter = 2) {
+export function wobblyEllipse(ctx, cx, cy, rx, ry, jitter = 2) {
   ctx.beginPath();
   const n = 26;
   for (let i = 0; i <= n; i++) {
@@ -51,7 +51,7 @@ function wobblyEllipse(ctx, cx, cy, rx, ry, jitter = 2) {
   ctx.closePath();
 }
 
-function inkStroke(ctx, w = 4) {
+export function inkStroke(ctx, w = 4) {
   ctx.strokeStyle = INK;
   ctx.lineWidth = w;
   ctx.lineCap = 'round';
